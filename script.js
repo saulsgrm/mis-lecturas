@@ -4,34 +4,29 @@ import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebas
 
 // Tu configuración de Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyAlJr_dQktL4U4aqQNz7bCOd88TMsS1Uqo",
-    authDomain: "mis-lecturas-9a27d.firebaseapp.com",
-    databaseURL: "https://mis-lecturas-9a27d-default-rtdb.firebaseio.com",
-    projectId: "mis-lecturas-9a27d",
-    storageBucket: "mis-lecturas-9a27d.appspot.com",
-    messagingSenderId: "183734127614",
-    appId: "1:183734127614:web:58e4c87263b1b42d7e0eaf",
+  apiKey: "AIzaSyAlJr_dQktL4U4aqQNz7bCOd88TMsS1Uqo",
+  authDomain: "mis-lecturas-9a27d.firebaseapp.com",
+  databaseURL: "https://mis-lecturas-9a27d-default-rtdb.firebaseio.com",
+  projectId: "mis-lecturas-9a27d",
+  storageBucket: "mis-lecturas-9a27d.firebasestorage.app",
+  messagingSenderId: "183734127614",
+  appId: "1:183734127614:web:58e4c87263b1b42d7e0eaf",
 };
 
 // Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// Referencias a las bases de datos
-const reflectionsRef = ref(database, "reflections");
-const discussionsRef = ref(database, "discussions");
+// Referencia a la base de datos
+const reflectionsRef = ref(database, 'reflections');
 
 // Elementos del DOM
-const reflectionForm = document.getElementById("reflection-form");
-const reflectionInput = document.getElementById("reflection-input");
-const reflectionsList = document.getElementById("reflections-list");
-
-const discussionForm = document.getElementById("discussion-form");
-const discussionInput = document.getElementById("discussion-input");
-const discussionsList = document.getElementById("discussions-list");
+const reflectionForm = document.getElementById('reflection-form');
+const reflectionInput = document.getElementById('reflection-input');
+const reflectionsList = document.getElementById('reflections-list');
+const toggleModeButton = document.createElement('button');
 
 // Añade el botón de modo oscuro
-const toggleModeButton = document.createElement("button");
 toggleModeButton.textContent = "Modo Oscuro";
 toggleModeButton.style.position = "fixed";
 toggleModeButton.style.top = "10px";
@@ -42,18 +37,15 @@ toggleModeButton.style.backgroundColor = "#6200ee";
 toggleModeButton.style.color = "#ffffff";
 toggleModeButton.style.borderRadius = "5px";
 toggleModeButton.style.cursor = "pointer";
-
-// Evento del botón para alternar entre modo oscuro y claro
-toggleModeButton.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    toggleModeButton.textContent = document.body.classList.contains("dark-mode") ? "Modo Claro" : "Modo Oscuro";
+toggleModeButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    toggleModeButton.textContent = document.body.classList.contains('dark-mode') ? "Modo Claro" : "Modo Oscuro";
 });
 
-// Agrega el botón al DOM
 document.body.appendChild(toggleModeButton);
 
 // Enviar reflexión a Firebase
-reflectionForm.addEventListener("submit", (e) => {
+reflectionForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const newReflection = reflectionInput.value;
@@ -68,30 +60,8 @@ onValue(reflectionsRef, (snapshot) => {
     reflectionsList.innerHTML = ""; // Limpia la lista antes de renderizar
     snapshot.forEach((childSnapshot) => {
         const reflection = childSnapshot.val();
-        const listItem = document.createElement("li");
+        const listItem = document.createElement('li');
         listItem.textContent = reflection;
         reflectionsList.appendChild(listItem);
-    });
-});
-
-// Enviar discusión a Firebase
-discussionForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const newDiscussion = discussionInput.value;
-    if (newDiscussion.trim() !== "") {
-        push(discussionsRef, newDiscussion);
-        discussionInput.value = ""; // Limpia el campo de texto
-    }
-});
-
-// Escuchar discusiones desde Firebase
-onValue(discussionsRef, (snapshot) => {
-    discussionsList.innerHTML = ""; // Limpia la lista antes de renderizar
-    snapshot.forEach((childSnapshot) => {
-        const discussion = childSnapshot.val();
-        const listItem = document.createElement("li");
-        listItem.textContent = discussion;
-        discussionsList.appendChild(listItem);
     });
 });
