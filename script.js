@@ -17,13 +17,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// Referencia a la base de datos
+// Referencias a las bases de datos
 const reflectionsRef = ref(database, "reflections");
+const discussionsRef = ref(database, "discussions");
 
 // Elementos del DOM
 const reflectionForm = document.getElementById("reflection-form");
 const reflectionInput = document.getElementById("reflection-input");
 const reflectionsList = document.getElementById("reflections-list");
+
+const discussionForm = document.getElementById("discussion-form");
+const discussionInput = document.getElementById("discussion-input");
+const discussionsList = document.getElementById("discussions-list");
 
 // Añade el botón de modo oscuro
 const toggleModeButton = document.createElement("button");
@@ -66,5 +71,27 @@ onValue(reflectionsRef, (snapshot) => {
         const listItem = document.createElement("li");
         listItem.textContent = reflection;
         reflectionsList.appendChild(listItem);
+    });
+});
+
+// Enviar discusión a Firebase
+discussionForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const newDiscussion = discussionInput.value;
+    if (newDiscussion.trim() !== "") {
+        push(discussionsRef, newDiscussion);
+        discussionInput.value = ""; // Limpia el campo de texto
+    }
+});
+
+// Escuchar discusiones desde Firebase
+onValue(discussionsRef, (snapshot) => {
+    discussionsList.innerHTML = ""; // Limpia la lista antes de renderizar
+    snapshot.forEach((childSnapshot) => {
+        const discussion = childSnapshot.val();
+        const listItem = document.createElement("li");
+        listItem.textContent = discussion;
+        discussionsList.appendChild(listItem);
     });
 });
