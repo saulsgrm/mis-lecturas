@@ -27,6 +27,25 @@ const reflectionsRef = ref(database, 'reflections');
 const reflectionForm = document.getElementById('reflection-form');
 const reflectionInput = document.getElementById('reflection-input');
 const reflectionsList = document.getElementById('reflections-list');
+const toggleModeButton = document.createElement('button');
+
+// Añade el botón de modo oscuro
+toggleModeButton.textContent = "Modo Oscuro";
+toggleModeButton.style.position = "fixed";
+toggleModeButton.style.top = "10px";
+toggleModeButton.style.right = "10px";
+toggleModeButton.style.padding = "10px";
+toggleModeButton.style.border = "none";
+toggleModeButton.style.backgroundColor = "#6200ee";
+toggleModeButton.style.color = "#ffffff";
+toggleModeButton.style.borderRadius = "5px";
+toggleModeButton.style.cursor = "pointer";
+toggleModeButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    toggleModeButton.textContent = document.body.classList.contains('dark-mode') ? "Modo Claro" : "Modo Oscuro";
+});
+
+document.body.appendChild(toggleModeButton);
 
 // Enviar reflexión a Firebase
 reflectionForm.addEventListener('submit', (e) => {
