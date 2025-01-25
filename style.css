@@ -81,23 +81,29 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Dark Mode */
+/* Modo oscuro */
 body.dark-mode {
-    background-color: #2d4059;
-    color: #f7f4ef;
+    background-color: #121212; /* Fondo oscuro */
+    color: #f5f5f5; /* Texto claro */
 }
 
-body.dark-mode header,
+body.dark-mode header {
+    background-color: #1f1f1f; /* Cabecera oscura */
+}
+
 body.dark-mode footer {
-    background-color: #1b2838;
+    background-color: #1f1f1f; /* Pie de página oscuro */
 }
 
+body.dark-mode form input,
 body.dark-mode form button {
-    background-color: #f7f4ef;
-    color: #2d4059;
+    background-color: #333; /* Controles oscuros */
+    color: #f5f5f5;
+    border: 1px solid #555;
 }
 
 body.dark-mode ul li {
-    background: #3b5066;
+    background: #2a2a2a; /* Fondo de reflexiones */
+    color: #e0e0e0;
 }
 
