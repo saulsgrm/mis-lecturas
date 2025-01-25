@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Lecturas y Reflexiones</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Enlace al archivo CSS -->
     <script src="script.js" defer></script> <!-- Enlace al script -->
 </head>
 <body>
@@ -15,24 +15,32 @@
         <h2>Bienvenido a mi sitio</h2>
         <p>Este es un lugar para documentar mis lecturas y pensamientos.</p>
 
-        <!-- Enlace a las reflexiones -->
-        <a href="#reflections-section">Ver mis reflexiones</a><br>
+        <!-- Enlaces a Reflexiones y Discusiones -->
+        <section>
+            <h3>Reflexiones y Discusiones</h3>
+            <ul>
+                <li><a href="#reflections">Mis Reflexiones</a></li>
+                <li><a href="#discussions">Discusiones Generales</a></li>
+            </ul>
+        </section>
 
-        <!-- Enlace a las discusiones -->
-        <a href="#discussions-section">Iniciar una discusión</a>
+        <!-- Formulario para escribir una reflexión -->
+        <section id="reflections">
+            <h3>Escribe tu Reflexión</h3>
+            <form id="reflection-form">
+                <textarea id="reflection-input" placeholder="Escribe tu reflexión aquí..." required></textarea>
+                <button type="submit">Enviar Reflexión</button>
+            </form>
 
-        <section id="reflections-section">
-            <h3>Mis Reflexiones</h3>
+            <!-- Lista de reflexiones -->
             <ul id="reflections-list"></ul>
         </section>
 
-        <section id="discussions-section">
-            <h3>Iniciar una Discusión</h3>
-            <form id="discussion-form">
-                <textarea id="discussion-input" placeholder="Escribe tu discusión aquí..." required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-            <ul id="discussions-list"></ul>
+        <!-- Sección de discusiones generales -->
+        <section id="discussions">
+            <h3>Discusiones Generales</h3>
+            <p>Aquí puedes empezar conversaciones no directamente relacionadas con tus lecturas.</p>
+            <!-- Agregar funcionalidades para discusiones si lo deseas -->
         </section>
     </main>
     <footer>
